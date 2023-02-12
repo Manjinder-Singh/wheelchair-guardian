@@ -37,12 +37,10 @@ def function2():
     data = request.get_json()
     print("Data:- ",data)
     logging.info(data)
-    logging.info(data)
+    logging.info(data['status')
     response = {
-        "message": "JSON received successfully",
-        "status_code": 200,
-        "success": True
-    }
+        "status" : data['status']
+        }
     return json.dumps(response)
         
 if __name__ == '__main__':
