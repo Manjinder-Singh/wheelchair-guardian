@@ -37,7 +37,7 @@ def function2():
     data = request.get_json()
     print("Data:- ",data)
     logging.info(data)
-    logging.info(data['status')
+    logging.info(data['status'])
     response = {
         "status" : data['status']
         }
