@@ -214,16 +214,16 @@ function EmergencyContacts() {
         {users.map((user, index) => (
           <View key={index} style={styles.emergencyContacts}>
             <View>
-              <Text>{`${user.firstName} ${user.lastName}`}</Text>
+              <Text style={styles.textStyle}>{`${user.firstName} ${user.lastName}`}</Text>
             </View>
             <View>
-              <Text>{user.email}</Text>
+              <Text style={styles.textStyle}>{user.email}</Text>
             </View>
             <View>
-              <Text>{user.mobileNumber}</Text>
+              <Text style={styles.textStyle}>{user.mobileNumber}</Text>
             </View>
             <View>
-              <Text>{user.address}</Text>
+              <Text style={styles.textStyle}>{user.address}</Text>
             </View>
           </View>
         ))}
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     // marginBottom: 16,
     paddingHorizontal: 16,
+    color: 'black'
   },
   error: {
     color: 'red',
@@ -264,6 +265,7 @@ const styles = StyleSheet.create({
   },
   emergencyContacts: {
     backgroundColor: '#fff',
+    color: 'black',
     borderRadius: 5,
     padding: 10,
     shadowOffset: {
@@ -274,6 +276,9 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowColor: '#000',
   },
+  textStyle: {
+    color: 'black'
+  }
 });
 
 export default EmergencyContacts;
