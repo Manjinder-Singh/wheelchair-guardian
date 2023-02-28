@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -7,25 +8,55 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-const Dashboard = ({ navigation }) => {
+const Dashboard = ({navigation}) => {
+  const [profileData, setProfileData] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   useEffect(() => {
     setLockStatus('UNLOCKED');
+    const readData = async () => {
+      try {
+        const profileData = JSON.parse(await AsyncStorage.getItem('inputs'));
+        console.log('******', profileData);
+        setProfileData(profileData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    readData();
   }, []);
+  React.useEffect(() => {
+    const readData = async () => {
+      try {
+        const profileData = JSON.parse(await AsyncStorage.getItem('inputs'));
+        console.log('******', profileData);
+        setProfileData(profileData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const unsubscribe = navigation.addListener('focus', () => {
+      readData();
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
   const handleWheelchairLocking = () => {
     fetch('http://127.0.0.1:5003/status_value')
       .then(r => r.json())
       .then(res => {
         const {lock_status} = res;
-        // console.log('*****', res.lock_status);
+        // console.log('rrr', res);
         if (lock_status === 'UNLOCKED') {
           setLockStatus('LOCKED');
         } else {
           Alert.alert('Wheelchair is already locked!');
         }
-      }).catch(e => {
-        Alert.alert(e.message)
+      })
+      .catch(e => {
+        console.log('*==', e);
+        Alert.alert(e.message);
       });
   };
   const setLockStatus = status => {
@@ -44,11 +75,12 @@ const Dashboard = ({ navigation }) => {
         Alert.alert(
           `Wheelchair is ${status === 'UNLOCKED' ? 'unlocked' : 'locked'}`,
         );
-      }).catch(e => {
-        Alert.alert(e.message)
+      })
+      .catch(e => {
+        console.log('nnn', e);
+        Alert.alert(e.message);
       });
   };
-
   return (
     <View style={styles.container}>
       <View style={[styles.sidebar, {left: menuOpen ? 0 : -200}]}>
@@ -66,8 +98,19 @@ const Dashboard = ({ navigation }) => {
             color: 'white',
             marginLeft: 5,
           }}>
-          Hello{'\n'}Sharlin Markov
+          Hello
         </Text>
+        {profileData && profileData.name && (
+          <Text
+            style={{
+              fontSize: 24,
+              marginBottom: 5,
+              color: 'white',
+              marginLeft: 5,
+            }}>
+            {profileData.name}
+          </Text>
+        )}
       </View>
       <View
         style={{
@@ -84,7 +127,7 @@ const Dashboard = ({ navigation }) => {
             flexDirection: 'row',
           }}>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Profile')}
+            onPress={() => navigation.navigate('Profile')}
             style={{
               flex: 1,
               backgroundColor: '#1E90FF',
@@ -103,7 +146,7 @@ const Dashboard = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Emergency Contacts')}
+            onPress={() => navigation.navigate('Emergency Contacts')}
             style={{
               flex: 1,
               backgroundColor: 'orange',
@@ -130,7 +173,7 @@ const Dashboard = ({ navigation }) => {
             gap: 10,
           }}>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Emergency Activation')}
+            onPress={() => navigation.navigate('Emergency Activation')}
             style={{
               backgroundColor: '#404040',
               padding: 30,
@@ -174,7 +217,7 @@ const Dashboard = ({ navigation }) => {
             gap: 10,
           }}>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Maintenance')}
+            onPress={() => navigation.navigate('Maintenance')}
             style={{
               backgroundColor: '#90EE90',
               padding: 25,
@@ -192,7 +235,7 @@ const Dashboard = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Notification')}
+            onPress={() => navigation.navigate('Notification')}
             style={{
               backgroundColor: 'red',
               padding: 20,

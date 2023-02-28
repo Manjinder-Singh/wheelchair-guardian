@@ -1,78 +1,80 @@
-import React, { useEffect } from 'react'
-import { Text, TextInput, Image, View, StyleSheet, Alert, Switch, Modal, Pressable } from 'react-native'
+import React, {useEffect} from 'react';
+import {
+  Text,
+  TextInput,
+  Image,
+  View,
+  StyleSheet,
+  Alert,
+  Switch,
+  Modal,
+  Pressable,
+  SafeAreaView,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-export default function Profile ()
-{
+export default function Profile() {
   const [inputs, setInputs] = React.useState({
     name: '',
     contact: '',
     email: '',
     address: '',
     age: '',
-    gender: ''
+    // gender: ''
   });
-  const saveInputs = async () =>
-  {
-    try
-    {
+  const saveInputs = async () => {
+    try {
       await AsyncStorage.setItem('inputs', JSON.stringify(inputs));
       console.log('Inputs saved successfully');
       setModalVisible(false);
-    } catch (e)
-    {
+    } catch (e) {
       console.log('Failed to save inputs:', e);
     }
   };
-  useEffect(() =>
-  {
-    const readData = async () =>
-    {
+  useEffect(() => {
+    const readData = async () => {
       const profileData = JSON.parse(await AsyncStorage.getItem('inputs'));
-      console.log("******", profileData)
-      setInputs(profileData)
-    }
-    AsyncStorage.multiGet(['name', 'contact', 'email', 'address', 'age', 'gender'])
-      .then((inputs) =>
-      {
-        const dataArray = inputs.map((value) => value[1]);
+      console.log('******', profileData);
+      setInputs(profileData);
+    };
+    AsyncStorage.multiGet([
+      'name',
+      'contact',
+      'email',
+      'address',
+      'age',
+      // 'gender'
+    ])
+      .then(inputs => {
+        const dataArray = inputs.map(value => value[1]);
         setData(dataArray);
       })
-      .catch((error) => console.log(error));
-    readData()
-  }, [])
-  const loadInputs = async () =>
-  {
-    try
-    {
+      .catch(error => console.log(error));
+    readData();
+  }, []);
+  const loadInputs = async () => {
+    try {
       const value = await AsyncStorage.getItem('inputs');
-      if (value !== null)
-      {
+      if (value !== null) {
         setInputs(JSON.parse(value));
         console.log('Inputs loaded successfully');
-      } else
-      {
+      } else {
         console.log('No inputs found');
       }
-    } catch (e)
-    {
+    } catch (e) {
       console.log('Failed to load inputs:', e);
     }
   };
-  const handleChange = (key, value) =>
-  {
+  const handleChange = (key, value) => {
     setInputs({
       ...inputs,
-      [key]: value
+      [key]: value,
     });
   };
-
   const [isEnabled, setIsEnabled] = React.useState(false);
-  const toggleSwitch = () =>
-  {
+  const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
   };
   const [modalVisible, setModalVisible] = React.useState(false);
-
   return (
     <View style={styles.container}>
       <Image
@@ -82,19 +84,19 @@ export default function Profile ()
           marginTop: 40,
           width: 130,
           height: 130,
-          borderRadius: 200 / 2
+          borderRadius: 200 / 2,
         }}
       />
-      <Text style={[styles.TextView, styles.setColorWhite, styles.name]}>
-        {inputs.name}</Text>
+      <Text style={[styles.userName, styles.setColorWhite]}>
+        {inputs && inputs.name}
+      </Text>
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}>
         <Text style={styles.textStyle}>Edit Profile</Text>
       </Pressable>
-      <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 40 }}>
-        {/* <Text style={styles.setColorWhite}>Notifications</Text>
-        <Switch
+      <View style={{flexDirection: 'row', alignSelf: 'center', marginTop: 40}}>
+        {/* <Text style={styles.setColorWhite}>Notifications</Text>        <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
           onValueChange={toggleSwitch}
@@ -103,121 +105,134 @@ export default function Profile ()
             marginLeft: 10
           }} /> */}
       </View>
-
       <View style={[styles.TextView, styles.setColorWhite]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>Contact Number: {inputs.contact}</Text>
+        <Text style={[styles.TextView, styles.setColorWhite]}>
+          Contact Number: {inputs && inputs.contact}
+        </Text>
       </View>
-
       <View style={[styles.TextView]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>Email ID: {inputs.email}</Text>
+        <Text style={[styles.TextView, styles.setColorWhite]}>
+          Email ID: {inputs && inputs.email}
+        </Text>
       </View>
-
       <View style={[styles.TextView]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>Address: {inputs.address}</Text>
+        <Text style={[styles.TextView, styles.setColorWhite]}>
+          Address: {inputs && inputs.address}
+        </Text>
       </View>
-
       <View style={[styles.TextView]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>Age: {inputs.age}</Text>
+        <Text style={[styles.TextView, styles.setColorWhite]}>
+          Age: {inputs && inputs.age}
+        </Text>
       </View>
-
-      <View style={[styles.TextView]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>Gender: {inputs.gender}</Text>
-      </View>
+      {/* <View style={[styles.TextView]}>        <Text style={[styles.TextView, styles.setColorWhite]}>Gender: {inputs && inputs.gender}</Text>      </View> */}
       <View style={styles.centeredView}>
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() =>
-          {
+          onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <View style={{ flexDirection: 'row', marginLeft: 80, marginTop: 20 }}>
-                <Text>Name</Text>
-                <TextInput
-                  placeholder="Enter name: "
-                  style={styles.input}
-                  textAlign={'center'}
-                  value={inputs.name}
-                  onChangeText={text => handleChange('name', text)}
-                />
-              </View>
-              <View style={{ flexDirection: 'row', marginLeft: 80, marginTop: 20 }}>
-                <Text>Contact Number</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Contact Number: "
-                  textAlign={'center'}
-                  onChangeText={text => handleChange('contact', text)}
-                  value={inputs.contact}
-                />
-              </View>
-              <View style={{ flexDirection: 'row', marginLeft: 80 }}>
-                <Text>Email ID</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Email ID: "
-                  textAlign={'center'}
-                  onChangeText={text => handleChange('email', text)}
-                  value={inputs.email}
-                />
-              </View>
-              <View style={{ flexDirection: 'row', marginLeft: 80 }}>
-                <Text>Address</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Address: "
-                  textAlign={'center'}
-                  onChangeText={text => handleChange('address', text)}
-                  value={inputs.address}
-                />
-              </View>
-              <View style={{ flexDirection: 'row', marginLeft: 80 }}>
-                <Text>Age</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Age: "
-                  textAlign={'center'}
-                  onChangeText={text => handleChange('age', text)}
-                  value={inputs.age}
-                />
-              </View>
-              <View style={{ flexDirection: 'row', marginLeft: 80 }}>
-                <Text>Gender</Text>
-                <TextInput
+              <SafeAreaView>
+                <View style={{flexDirection: 'row'}}>
+                  {/* <Text>Name</Text> */}
+                  <TextInput
+                    placeholder="Name"
+                    style={styles.input}
+                    textAlign={'center'}
+                    value={inputs && inputs.name}
+                    onChangeText={text => handleChange('name', text)}
+                  />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  {/* <Text>Contact Number</Text> */}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Contact Number"
+                    textAlign={'center'}
+                    onChangeText={text => handleChange('contact', text)}
+                    value={inputs && inputs.contact}
+                  />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  {/* <Text>Email ID</Text> */}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Email ID "
+                    textAlign={'center'}
+                    onChangeText={text => handleChange('email', text)}
+                    value={inputs && inputs.email}
+                  />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  {/* <Text>Address</Text> */}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter Address "
+                    textAlign={'center'}
+                    onChangeText={text => handleChange('address', text)}
+                    value={inputs && inputs.address}
+                  />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  {/* <Text>Age</Text> */}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter Age: "
+                    textAlign={'center'}
+                    onChangeText={text => handleChange('age', text)}
+                    value={inputs && inputs.age}
+                  />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  {/* <Text>Gender</Text> */}
+                  {/* <TextInput
                   style={styles.input}
                   placeholder="Enter Gender: "
                   textAlign={'center'}
                   onChangeText={text => handleChange('gender', text)}
-                  value={inputs.gender}
-                />
-              </View>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={saveInputs}>
-                <Text style={styles.textStyle}>Submit</Text>
-              </Pressable>
+                  value={inputs && inputs.gender}
+                /> */}
+                </View>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={saveInputs}>
+                  <Text style={styles.textStyle}>Submit</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.secondaryButton]}
+                  onPress={() => setModalVisible(false)}>
+                  <Text style={styles.secondaryButtonTextStyle}>cancel</Text>
+                </Pressable>
+              </SafeAreaView>
             </View>
           </View>
         </Modal>
       </View>
     </View>
-
   );
-};
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+  },
+  input: {
+    flex: 1,
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
   button1: {
     backgroundColor: 'blue',
     borderRadius: 50,
-    padding: 10,
+    padding: 50,
     width: 150,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   buttonText: {
     color: 'white',
@@ -231,9 +246,12 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
+    width: 350,
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
+    padding: 50,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -248,7 +266,7 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
     alignSelf: 'center',
-    marginTop: 20
+    marginTop: 20,
   },
   buttonOpen: {
     backgroundColor: 'blue',
@@ -258,8 +276,19 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: '#2196F3',
   },
+  secondaryButton: {
+    borderWidth: 1,
+    borderColor: '#2196F3',
+    backgroundColor: '#fff',
+    color: "black"
+  },
   textStyle: {
     color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  secondaryButtonTextStyle: {
+    color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -268,18 +297,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   Text: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   setColorWhite: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+  },
+  userName: {
+    flexDirection: 'row',
+    textAlign: 'center',
+    marginTop: 15,
+    fontSize: 20,
   },
   TextView: {
     flexDirection: 'row',
     marginLeft: 27,
+    textAlign: 'center',
     marginTop: 15,
-    fontSize: 20
+    fontSize: 20,
   },
-  name: {
-    marginLeft: 178
-  }
 });

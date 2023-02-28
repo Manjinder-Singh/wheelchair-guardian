@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const REQUIRED_ERROR = 'This field is required.';
 const INVALID_EMAIL = 'Invalid email!';
 const INVALID_MOBILE_NUMBER = 'Invalid mobile number!';
-
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mobileRegex = /^[0-9]{10}$/;
 function EmergencyContacts() {
@@ -29,7 +28,7 @@ function EmergencyContacts() {
       try {
         const value = await AsyncStorage.getItem('emergencyContacts');
         if (value !== null) {
-          setUsers(JSON.parse(value).users)
+          setUsers(JSON.parse(value).users);
         } else {
           console.log('Data not found.');
         }
@@ -44,19 +43,20 @@ function EmergencyContacts() {
       emailError: '',
       addressError: '',
     });
-    setInitialData()
+    setInitialData();
   }, []);
   async function saveData(allUsers) {
     try {
-      await AsyncStorage.setItem('emergencyContacts', JSON.stringify({users : allUsers}));
+      await AsyncStorage.setItem(
+        'emergencyContacts',
+        JSON.stringify({users: allUsers}),
+      );
       console.log('Data saved.');
     } catch (error) {
       console.log('Error saving data:', error);
     }
   }
-
-
-  const addUser = async() => {
+  const addUser = async () => {
     if (users.length >= 5) {
       // setError('You can only add up to 5 users');
       return;
@@ -69,18 +69,17 @@ function EmergencyContacts() {
         mobileNumber: '',
         email: '',
         address: '',
-      })
+      });
       setError({
         firstNameError: '',
         lastNameError: '',
         mobileNumberError: '',
         emailError: '',
         addressError: '',
-      })
-      await saveData([...users, newUser])
+      });
+      await saveData([...users, newUser]);
     }
   };
-
   const handleChange = (type, text) => {
     const tempUser = {...newUser};
     tempUser[type] = text;
@@ -89,51 +88,44 @@ function EmergencyContacts() {
       emailRegex.test(text)
         ? setError({...error, emailError: ''})
         : setError({...error, emailError: INVALID_EMAIL});
-    } else if (type === 'mobileNumber' || text.length != 10) {
+    } else if (type === 'mobileNumber' && text.length != 10) {
       mobileRegex.test(text)
         ? setError({...error, mobileNumberError: ''})
         : setError({...error, mobileNumberError: INVALID_MOBILE_NUMBER});
     } else {
       if (text.trim()) {
-        setError({...error, [`${type}Error`]: ''})
+        setError({...error, [`${type}Error`]: ''});
       } else {
-        setError({...error, [`${type}Error`]: REQUIRED_ERROR})
+        setError({...error, [`${type}Error`]: REQUIRED_ERROR});
       }
     }
   };
-
   // const handleEdit = () => {
   //   setEditable(true);
   // };
   const validateForm = () => {
     let formIsValid = true;
     const newErrors = {...error};
-
     if (!newUser.firstName.trim()) {
       newErrors.firstNameError = REQUIRED_ERROR;
       formIsValid = false;
     }
-
     if (!newUser.lastName.trim()) {
       newErrors.lastNameError = REQUIRED_ERROR;
       formIsValid = false;
     }
-
     if (!newUser.mobileNumber.trim()) {
       newErrors.mobileNumberError = REQUIRED_ERROR;
       formIsValid = false;
     }
-
     if (!newUser.email.trim()) {
       newErrors.emailError = REQUIRED_ERROR;
       formIsValid = false;
     }
-
     if (!newUser.address.trim()) {
       newErrors.addressError = REQUIRED_ERROR;
       formIsValid = false;
     }
-
     setError(newErrors);
     return formIsValid;
   };
@@ -214,7 +206,10 @@ function EmergencyContacts() {
         {users.map((user, index) => (
           <View key={index} style={styles.emergencyContacts}>
             <View>
-              <Text style={styles.textStyle}>{`${user.firstName} ${user.lastName}`}</Text>
+              <Text
+                style={
+                  styles.textStyle
+                }>{`${user.firstName} ${user.lastName}`}</Text>
             </View>
             <View>
               <Text style={styles.textStyle}>{user.email}</Text>
@@ -248,7 +243,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     // marginBottom: 16,
     paddingHorizontal: 16,
-    color: 'black'
+    color: 'black',
   },
   error: {
     color: 'red',
@@ -277,8 +272,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
   },
   textStyle: {
-    color: 'black'
-  }
+    color: 'black',
+  },
 });
-
 export default EmergencyContacts;
