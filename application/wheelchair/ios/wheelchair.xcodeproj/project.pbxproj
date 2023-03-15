@@ -43,6 +43,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-wheelchair.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wheelchair.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = wheelchair/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-wheelchair-wheelchairTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wheelchair-wheelchairTests.release.xcconfig"; path = "Target Support Files/Pods-wheelchair-wheelchairTests/Pods-wheelchair-wheelchairTests.release.xcconfig"; sourceTree = "<group>"; };
+		A3D249DB29C0CF1F00071B34 /* wheelchair.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = wheelchair.entitlements; path = wheelchair/wheelchair.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -86,6 +87,7 @@
 		13B07FAE1A68108700A75B9A /* wheelchair */ = {
 			isa = PBXGroup;
 			children = (
+				A3D249DB29C0CF1F00071B34 /* wheelchair.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -485,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = wheelchair/wheelchair.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = wheelchair/Info.plist;
@@ -512,6 +515,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = wheelchair/wheelchair.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = wheelchair/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

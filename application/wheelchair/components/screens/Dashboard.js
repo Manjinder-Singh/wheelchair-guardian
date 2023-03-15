@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   Alert,
 } from 'react-native';
@@ -14,10 +13,13 @@ const Dashboard = ({navigation}) => {
   const [menuItems, setMenuItems] = useState([]);
   useEffect(() => {
     setLockStatus('UNLOCKED');
+    
     const readData = async () => {
       try {
+        if (! await AsyncStorage.getItem('notificationTriggerBaseTimeStamp')) {
+          await AsyncStorage.setItem('notificationTriggerBaseTimeStamp',Date().toString());
+        } 
         const profileData = JSON.parse(await AsyncStorage.getItem('inputs'));
-        console.log('******', profileData);
         setProfileData(profileData);
       } catch (error) {
         console.log(error);
@@ -29,7 +31,6 @@ const Dashboard = ({navigation}) => {
     const readData = async () => {
       try {
         const profileData = JSON.parse(await AsyncStorage.getItem('inputs'));
-        console.log('******', profileData);
         setProfileData(profileData);
       } catch (error) {
         console.log(error);

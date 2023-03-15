@@ -46,7 +46,7 @@ export default function Profile() {
     ])
       .then(inputs => {
         const dataArray = inputs.map(value => value[1]);
-        setData(dataArray);
+        // setData(dataArray);
       })
       .catch(error => console.log(error));
     readData();
