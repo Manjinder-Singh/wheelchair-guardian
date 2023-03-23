@@ -11,8 +11,9 @@ import {
   Pressable,
   SafeAreaView,
 } from 'react-native';
+import { text } from '../../helpers/en' 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-export default function Profile() {
+export default function Profile({lang}) {
   const [inputs, setInputs] = React.useState({
     name: '',
     contact: '',
@@ -33,7 +34,6 @@ export default function Profile() {
   useEffect(() => {
     const readData = async () => {
       const profileData = JSON.parse(await AsyncStorage.getItem('inputs'));
-      console.log('******', profileData);
       setInputs(profileData);
     };
     AsyncStorage.multiGet([
@@ -93,7 +93,7 @@ export default function Profile() {
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>Edit Profile</Text>
+        <Text style={styles.textStyle}>{text[lang].editProfile}</Text>
       </Pressable>
       <View style={{flexDirection: 'row', alignSelf: 'center', marginTop: 40}}>
         {/* <Text style={styles.setColorWhite}>Notifications</Text>        <Switch
@@ -107,22 +107,22 @@ export default function Profile() {
       </View>
       <View style={[styles.TextView, styles.setColorWhite]}>
         <Text style={[styles.TextView, styles.setColorWhite]}>
-          Contact Number: {inputs && inputs.contact}
+        {text[lang].contactNumber}: {inputs && inputs.contact}
         </Text>
       </View>
       <View style={[styles.TextView]}>
         <Text style={[styles.TextView, styles.setColorWhite]}>
-          Email ID: {inputs && inputs.email}
+        {text[lang].emailId}: {inputs && inputs.email}
         </Text>
       </View>
       <View style={[styles.TextView]}>
         <Text style={[styles.TextView, styles.setColorWhite]}>
-          Address: {inputs && inputs.address}
+        {text[lang].address}: {inputs && inputs.address}
         </Text>
       </View>
       <View style={[styles.TextView]}>
         <Text style={[styles.TextView, styles.setColorWhite]}>
-          Age: {inputs && inputs.age}
+        {text[lang].age}: {inputs && inputs.age}
         </Text>
       </View>
       {/* <View style={[styles.TextView]}>        <Text style={[styles.TextView, styles.setColorWhite]}>Gender: {inputs && inputs.gender}</Text>      </View> */}
@@ -140,7 +140,7 @@ export default function Profile() {
                 <View style={{flexDirection: 'row'}}>
                   {/* <Text>Name</Text> */}
                   <TextInput
-                    placeholder="Name"
+                    placeholder={text[lang].name}
                     style={styles.input}
                     textAlign={'center'}
                     value={inputs && inputs.name}
@@ -151,7 +151,7 @@ export default function Profile() {
                   {/* <Text>Contact Number</Text> */}
                   <TextInput
                     style={styles.input}
-                    placeholder="Contact Number"
+                    placeholder={text[lang].contactNumber}
                     textAlign={'center'}
                     onChangeText={text => handleChange('contact', text)}
                     value={inputs && inputs.contact}
@@ -161,7 +161,7 @@ export default function Profile() {
                   {/* <Text>Email ID</Text> */}
                   <TextInput
                     style={styles.input}
-                    placeholder="Email ID "
+                    placeholder={text[lang].emailId}
                     textAlign={'center'}
                     onChangeText={text => handleChange('email', text)}
                     value={inputs && inputs.email}
@@ -171,7 +171,7 @@ export default function Profile() {
                   {/* <Text>Address</Text> */}
                   <TextInput
                     style={styles.input}
-                    placeholder="Enter Address "
+                    placeholder={text[lang].enterAddress}
                     textAlign={'center'}
                     onChangeText={text => handleChange('address', text)}
                     value={inputs && inputs.address}
@@ -181,7 +181,7 @@ export default function Profile() {
                   {/* <Text>Age</Text> */}
                   <TextInput
                     style={styles.input}
-                    placeholder="Enter Age: "
+                    placeholder={text[lang].enterAge}
                     textAlign={'center'}
                     onChangeText={text => handleChange('age', text)}
                     value={inputs && inputs.age}
@@ -200,12 +200,12 @@ export default function Profile() {
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={saveInputs}>
-                  <Text style={styles.textStyle}>Submit</Text>
+                  <Text style={styles.textStyle}>{text[lang].submit}</Text>
                 </Pressable>
                 <Pressable
                   style={[styles.button, styles.secondaryButton]}
                   onPress={() => setModalVisible(false)}>
-                  <Text style={styles.secondaryButtonTextStyle}>cancel</Text>
+                  <Text style={styles.secondaryButtonTextStyle}>{text[lang].cancel}</Text>
                 </Pressable>
               </SafeAreaView>
             </View>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   buttonOpen: {
     backgroundColor: 'blue',
     borderRadius: 50,
-    width: 150,
+    minWidth: 150,
   },
   buttonClose: {
     backgroundColor: '#2196F3',

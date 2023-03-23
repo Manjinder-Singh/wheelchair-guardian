@@ -9,8 +9,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { text } from '../../helpers/en' 
 
-const EmergencyActivation = () => {
+const EmergencyActivation = ({lang}) => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const socket = io('http://localhost:5003');
@@ -62,13 +63,12 @@ const EmergencyActivation = () => {
             <Text
               style={
                 styles.textStyle
-              }>Police</Text>
+              }>{text[lang].police}</Text>
           </View>
           <Button
             onPress={() => handleCallPress('911')}
-            title="call"
+            title={text[lang].call}
             color="#841584"
-            accessibilityLabel="Learn more about this purple button"
           />
         </View>
         {users.map((user, index) => (
@@ -77,9 +77,8 @@ const EmergencyActivation = () => {
             <Button
               style={styles.callBtnStyle}
               onPress={() => handleCallPress(user.mobileNumber)}
-              title="call"
+              title={text[lang].call}
               color="#841584"
-              accessibilityLabel="Learn more about this purple button"
             />
           </View>
         ))}

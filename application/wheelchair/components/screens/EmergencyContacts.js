@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { text } from '../../helpers/en' 
 const REQUIRED_ERROR = 'This field is required.';
 const INVALID_EMAIL = 'Invalid email!';
 const INVALID_MOBILE_NUMBER = 'Invalid mobile number!';
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mobileRegex = /^[0-9]{10}$/;
-function EmergencyContacts() {
+function EmergencyContacts({lang}) {
   const [newUser, setNewUser] = useState({
     firstName: '',
     lastName: '',
@@ -136,11 +137,9 @@ function EmergencyContacts() {
           <View style={styles.inputBox}>
             <TextInput
               style={styles.input}
-              placeholder="First Name"
+              placeholder={text[lang].firstName}
               value={newUser.firstName}
               onChangeText={e => handleChange('firstName', e)}
-              // editable={editable}
-              // onPressIn={handleEdit}
             />
             {error.firstNameError ? (
               <Text style={styles.errorMessage}>{error.firstNameError}</Text>
@@ -149,11 +148,9 @@ function EmergencyContacts() {
           <View style={styles.inputBox}>
             <TextInput
               style={styles.input}
-              placeholder="Last Name"
+              placeholder={text[lang].lastName}
               value={newUser.lastName}
               onChangeText={e => handleChange('lastName', e)}
-              // editable={editable}
-              // onPressIn={handleEdit}
             />
             {error.lastNameError ? (
               <Text style={styles.errorMessage}>{error.lastNameError}</Text>
@@ -162,11 +159,9 @@ function EmergencyContacts() {
           <View style={styles.inputBox}>
             <TextInput
               style={styles.input}
-              placeholder="Mobile Number"
+              placeholder={text[lang].mobileNumber}
               value={newUser.mobileNumber}
               onChangeText={e => handleChange('mobileNumber', e)}
-              // editable={editable}
-              // onPressIn={handleEdit}
             />
             {error.mobileNumberError ? (
               <Text style={styles.errorMessage}>{error.mobileNumberError}</Text>
@@ -175,11 +170,9 @@ function EmergencyContacts() {
           <View style={styles.inputBox}>
             <TextInput
               style={styles.input}
-              placeholder="Email Address"
+              placeholder={text[lang].emailAddress}
               value={newUser.email}
               onChangeText={e => handleChange('email', e)}
-              // editable={editable}
-              // onPressIn={handleEdit}
             />
             {error.emailError ? (
               <Text style={styles.errorMessage}>{error.emailError}</Text>
@@ -188,11 +181,9 @@ function EmergencyContacts() {
           <View style={styles.inputBox}>
             <TextInput
               style={styles.input}
-              placeholder="Address"
+              placeholder={text[lang].address}
               value={newUser.address}
               onChangeText={e => handleChange('address', e)}
-              // editable={editable}
-              // onPressIn={handleEdit}
             />
             {error.addressError ? (
               <Text style={styles.errorMessage}>{error.addressError}</Text>
@@ -201,7 +192,7 @@ function EmergencyContacts() {
         </View>
       )}
       {/* {error ? <Text style={styles.error}>{error}</Text> : null} */}
-      {users.length < 5 && <Button title="Add User" onPress={addUser} />}
+      {users.length < 5 && <Button title={text[lang].addUser} onPress={addUser} />}
       <View style={styles.emergencyContactsContainer}>
         {users.map((user, index) => (
           <View key={index} style={styles.emergencyContacts}>
