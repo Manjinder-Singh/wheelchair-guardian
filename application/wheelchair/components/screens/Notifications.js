@@ -10,7 +10,8 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import {momentAfterTimePeriod} from '../../helpers/helpers';
-const Notifications = ({navigation}) => {
+import { text } from '../../helpers/en' 
+const Notifications = ({ lang }) => {
   const [notifications, setNotifications] = useState([]);
   let interval, timeout;
 
@@ -76,16 +77,16 @@ const Notifications = ({navigation}) => {
   return (
     <SafeAreaView style={styles.notificationsContainer}>
       {notifications.length ? (
-        <Text style={[styles.primaryText, styles.setColorWhite]}>Maintenance Reminder </Text>
+        <Text style={[styles.primaryText, styles.setColorWhite]}>{text[lang].maintenanceReminder}</Text>
       ) : (
-        <Text style={[styles.primaryText, styles.setColorWhite]}>No notification found!</Text>
+        <Text style={[styles.primaryText, styles.setColorWhite]}>{text[lang].noNotificationFound}</Text>
       )}
 
       <ScrollView style={styles.notificationsCardContainer}>
         {notifications &&
           notifications.map(notification => (
             <View key={notification.id} style={styles.notificationsCard}>
-              <Text>Maintenance due on</Text>
+              <Text>{text[lang].maintenanceDueOn}</Text>
               <Text>{notification.date}</Text>
             </View>
           ))}

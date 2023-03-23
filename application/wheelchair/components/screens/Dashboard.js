@@ -1,24 +1,31 @@
 import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Switch,
 } from 'react-native';
-const Dashboard = ({navigation}) => {
+import { text } from '../../helpers/en' 
+const Dashboard = ({setLanguage, lang = 'en'}) => {
+  const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   useEffect(() => {
     setLockStatus('UNLOCKED');
-    
+
     const readData = async () => {
       try {
-        if (! await AsyncStorage.getItem('notificationTriggerBaseTimeStamp')) {
-          await AsyncStorage.setItem('notificationTriggerBaseTimeStamp',Date().toString());
-        } 
+        if (!(await AsyncStorage.getItem('notificationTriggerBaseTimeStamp'))) {
+          await AsyncStorage.setItem(
+            'notificationTriggerBaseTimeStamp',
+            Date().toString(),
+          );
+        }
         const profileData = JSON.parse(await AsyncStorage.getItem('inputs'));
         setProfileData(profileData);
       } catch (error) {
@@ -52,7 +59,7 @@ const Dashboard = ({navigation}) => {
         if (lock_status === 'UNLOCKED') {
           setLockStatus('LOCKED');
         } else {
-          Alert.alert('Wheelchair is already locked!');
+          Alert.alert(text[lang].alreadyLockedError);
         }
       })
       .catch(e => {
@@ -78,9 +85,15 @@ const Dashboard = ({navigation}) => {
         );
       })
       .catch(e => {
-        console.log('nnn', e);
         Alert.alert(e.message);
       });
+  };
+  const handleLanguageChange = () => {
+    if (lang === 'en') {
+      setLanguage('fr');
+    } else {
+      setLanguage('en');
+    }
   };
   return (
     <View style={styles.container}>
@@ -91,17 +104,8 @@ const Dashboard = ({navigation}) => {
           </View>
         ))}
       </View>
-      <View>
-        <Text
-          style={{
-            fontSize: 24,
-            marginBottom: 5,
-            color: 'white',
-            marginLeft: 5,
-          }}>
-          Hello
-        </Text>
-        {profileData && profileData.name && (
+      <View style={styles.headerWrapper}>
+        <View>
           <Text
             style={{
               fontSize: 24,
@@ -109,9 +113,29 @@ const Dashboard = ({navigation}) => {
               color: 'white',
               marginLeft: 5,
             }}>
-            {profileData.name}
+            {text[lang].hello}
           </Text>
-        )}
+          {profileData && profileData.name && (
+            <Text
+              style={{
+                fontSize: 24,
+                marginBottom: 5,
+                color: 'white',
+                marginLeft: 5,
+              }}>
+              {profileData.name}
+            </Text>
+          )}
+        </View>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTitle}>French/English</Text>
+          <Switch
+            trackColor={{false: '#767577', true: '#81b0ff'}}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={() => handleLanguageChange()}
+            value={lang === 'en'}
+          />
+        </View>
       </View>
       <View
         style={{
@@ -143,7 +167,7 @@ const Dashboard = ({navigation}) => {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              Profile{'\n'} Details
+              {text[lang].profileDetails}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -162,7 +186,7 @@ const Dashboard = ({navigation}) => {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              Emergency{'\n'} Details
+              {text[lang].emergencyDetails}
             </Text>
           </TouchableOpacity>
         </View>
@@ -188,7 +212,7 @@ const Dashboard = ({navigation}) => {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              Emergency{'\n'} Activation
+              {text[lang].emergencyActivation}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -206,7 +230,7 @@ const Dashboard = ({navigation}) => {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              Lock Wheelchair
+              {text[lang].lockWheelchair}
             </Text>
           </TouchableOpacity>
         </View>
@@ -232,11 +256,11 @@ const Dashboard = ({navigation}) => {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              Maintenance{'\n'} Status
+              {text[lang].maintenanceStatus}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Notification')}
+            onPress={() => navigation.navigate('Notifications')}
             style={{
               backgroundColor: 'red',
               padding: 20,
@@ -250,7 +274,7 @@ const Dashboard = ({navigation}) => {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              Notifications
+              {text[lang].notifications}
             </Text>
           </TouchableOpacity>
         </View>
@@ -314,6 +338,19 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  headerWrapper:{
+    marginTop: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center'
+  },
+  headerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
   },
 });
 export default Dashboard;
