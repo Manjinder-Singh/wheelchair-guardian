@@ -5,7 +5,7 @@
  * @format
  */
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import TouchID from 'react-native-touch-id';
 import {
   Alert,
@@ -15,7 +15,7 @@ import {
   View,
   BackHandler,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -27,11 +27,12 @@ import EmergencyActivation from './components/screens/EmergencyActivation';
 import Maintenance from './components/screens/Maintenance';
 import Notifications from './components/screens/Notifications';
 import Dashboard from './components/screens/Dashboard';
-import {text} from './helpers/en';
+//import Loader from './components/screens/Loader';
+import { text } from './helpers/en';
 
-function Article({lang}) {
+function Article({ lang }) {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>{text[lang].articleScreen}</Text>
     </View>
   );
@@ -47,7 +48,7 @@ function CustomDrawerContent(props) {
 
 const Drawer = createDrawerNavigator();
 
-function MyDrawer({setLanguage, lang = 'en'}) {
+function MyDrawer({ setLanguage, lang = 'en' }) {
   return (
     <Drawer.Navigator
       useLegacyImplementation
@@ -122,14 +123,16 @@ function App() {
   }, []);
 
   return (
+
     <>
       {isAuth ? (
         <NavigationContainer>
           <MyDrawer setLanguage={setLanguage} lang={lang} />
         </NavigationContainer>
       ) : (
-        <Text>{text[lang].authIsRequired}</Text>
-      )}
+          <Text>{text[lang].authIsRequired}</Text>
+
+        )}
     </>
   );
 }

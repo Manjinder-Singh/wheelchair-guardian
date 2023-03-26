@@ -51,11 +51,10 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
     return unsubscribe;
   }, [navigation]);
   const handleWheelchairLocking = () => {
-    fetch('http://127.0.0.1:5003/status_value')
+    fetch('https://wcguardapi.azurewebsites.net/status_value')
       .then(r => r.json())
       .then(res => {
         const {lock_status} = res;
-        // console.log('rrr', res);
         if (lock_status === 'UNLOCKED') {
           setLockStatus('LOCKED');
         } else {
@@ -68,7 +67,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
       });
   };
   const setLockStatus = status => {
-    fetch('http://127.0.0.1:5003/receive_resp', {
+    fetch('https://wcguardapi.azurewebsites.net/receive_resp', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -79,9 +78,9 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
       .then(r => r.json())
       .then(res => {
         // console.log(res);
-        const {status} = res;
+        const {lock_status} = res;
         Alert.alert(
-          `Wheelchair is ${status === 'UNLOCKED' ? 'unlocked' : 'locked'}`,
+          `Wheelchair is ${lock_status === 'UNLOCKED' ? 'unlocked' : 'locked'}`,
         );
       })
       .catch(e => {
