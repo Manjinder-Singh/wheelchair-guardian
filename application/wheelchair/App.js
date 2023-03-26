@@ -61,15 +61,15 @@ function MyDrawer({ setLanguage, lang = 'en' }) {
       <Drawer.Screen name="Profile" options={{ title: text[lang].profile }}>
         {props => <Profile lang={lang} {...props} />}
       </Drawer.Screen>
-      <Drawer.Screen name="Emergency Contacts" options={{ title: text[lang].EmergencyContacts }}>
+      <Drawer.Screen name="Emergency Contacts" options={{ title: text[lang].emergencyContacts }}>
         {props => <EmergencyContacts lang={lang} {...props} />}
       </Drawer.Screen>
       <Drawer.Screen name="Emergency Activation" options={{ title: text[lang].emergencyActivation }}>
         {props => <EmergencyActivation lang={lang} {...props} />}
       </Drawer.Screen>
-      <Drawer.Screen name="Lock Wheelchair" options={{ title: text[lang].lockWheelchair }}>
+      {/* <Drawer.Screen name="Lock Wheelchair" options={{ title: text[lang].lockWheelchair }}>
         {props => <Article lang={lang} {...props} />}
-      </Drawer.Screen>
+      </Drawer.Screen>  */}
       <Drawer.Screen name="Maintenance" options={{ title: text[lang].maintenanceStatus }}>
         {props => <Maintenance lang={lang} {...props} />}
       </Drawer.Screen>
