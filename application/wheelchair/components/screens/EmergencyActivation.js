@@ -1,42 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import io from 'socket.io-client';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Linking,
-  Button,
-  StyleSheet,
-} from 'react-native';
+import {Text, View, Linking, Button, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { text } from '../../helpers/en' 
+import {text} from '../../helpers/en';
 
 const EmergencyActivation = ({lang}) => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    const socket = io('http://localhost:5003');
-
-    socket.on('connect', () => {
-      console.log('Connected to server');
-    });
-    socket.on('message', data => {
-      console.log('Received message:', data);
-    });
     setContacts();
-    return () => {
-      socket.disconnect();
-    };
   }, []);
-  const handleSendMessage = () => {
-    fetch('http://127.0.0.1:5003/send')
-      .then(r => r.json())
-      .then(res => {
-        console.log(res);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
   // const phoneNumber = '6478635069';
   const setContacts = async () => {
     const contacts = await AsyncStorage.getItem('emergencyContacts');
@@ -49,21 +20,10 @@ const EmergencyActivation = ({lang}) => {
   };
   return (
     <View>
-      {/* <TouchableOpacity
-          onPress={() => handleSendMessage()}
-            >
-            <Text
-              >
-              send message
-            </Text>
-          </TouchableOpacity> */}
       <View style={styles.emergencyContactsContainer}>
         <View style={styles.emergencyContacts}>
           <View>
-            <Text
-              style={
-                styles.textStyle
-              }>{text[lang].police}</Text>
+            <Text style={styles.textStyle}>{text[lang].police}</Text>
           </View>
           <Button
             onPress={() => handleCallPress('911')}
@@ -73,7 +33,10 @@ const EmergencyActivation = ({lang}) => {
         </View>
         {users.map((user, index) => (
           <View key={index} style={styles.emergencyContacts}>
-            <Text style={styles.textStyle}>{`${user.firstName} ${user.lastName}`}</Text>
+            <Text
+              style={
+                styles.textStyle
+              }>{`${user.firstName} ${user.lastName}`}</Text>
             <Button
               style={styles.callBtnStyle}
               onPress={() => handleCallPress(user.mobileNumber)}
@@ -96,7 +59,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   emergencyContacts: {
-    display:'flex',
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
@@ -112,7 +75,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
   },
   callBtnStyle: {
-    width: 80
-  } 
+    width: 80,
+  },
 });
 export default EmergencyActivation;
