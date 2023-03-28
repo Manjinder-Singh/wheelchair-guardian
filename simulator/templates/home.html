@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../staticFiles/css/main.css" />
+    <title>Server simulator</title>
+  </head>
+  <body>
+    <section class="header-section">
+      <h1>Raspberry-Pi simulator</h1>
+      <p>Wheelchair is {{ status }}</p>
+    </section>
+    <section class="simulator-controls">
+      <div class="lock-status-wrapper">
+        <h1 class="sec-title">Digital lock Status</h1>
+        <div class="lock-status-container">
+          <img src="../staticFiles/images/locked.png" alt="My Image" />
+        </div>
+      </div>
+
+      <div class="uv-sensor-input-wrapper">
+        <h1 class="sec-title">UV Sensor Reading</h1>
+        <div class="uv-sensor-input">
+          <input
+            id="uv-sensor-reading"
+            placeholder="Enter sensor value here"
+            value="25"
+            type="number"
+          />
+          <button id="set-btn">Set UV-Sensor Value</button>
+        </div>
+      </div>
+    </section>
+    <script>
+      const uvInput = document.getElementById("uv-sensor-reading");
+      const setBtn = document.getElementById("set-btn");
+      setBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch("http://localhost:5003/send_status_value", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ uv: uvInput.value }),
+        })
+          .then((r) => r.json())
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      });
+      function updateImage() {
+        fetch("http://localhost:5003/status_value")
+          .then((r) => r.json())
+          .then((res) => {
+            const { lock_status } = res;
+            console.log(lock_status);
+            const img = document.querySelector(
+              "div.lock-status-container > img"
+            );
+            img.src = `../staticFiles/images/${lock_status}.png`;
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      }
+      setInterval(() => {
+        updateImage();
+      }, 2000);
+    </script>
+  </body>
+</html>
