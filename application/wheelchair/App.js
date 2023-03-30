@@ -27,7 +27,8 @@ import EmergencyActivation from './components/screens/EmergencyActivation';
 import Maintenance from './components/screens/Maintenance';
 import Notifications from './components/screens/Notifications';
 import Dashboard from './components/screens/Dashboard';
-import {text} from './helpers/en';
+import Loader from './components/screens/Loader';
+import { text } from './helpers/en';
 
 function Article({lang}) {
   return (
@@ -81,17 +82,18 @@ function MyDrawer({setLanguage, lang = 'en'}) {
 
 function App() {
   const [isAuth, setIsAuth] = React.useState(false);
-  const [lang, setLanguage] = React.useState('en'); // [en / fr]
+  const [showLoader, setShowLoader] = React.useState(false);
+  const [lang, setLanguage] = React.useState('en');
   const optionalConfigObject = {
-    title: 'Authentication Required', // Android
-    imageColor: '#e00606', // Android
-    imageErrorColor: '#ff0000', // Android
-    sensorDescription: 'Touch sensor', // Android
-    sensorErrorDescription: 'Failed', // Android
-    cancelText: 'Cancel', // Android
-    fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
-    unifiedErrors: false, // use unified error messages (default false)
-    passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+    title: 'Authentication Required',
+    imageColor: '#e00606',
+    imageErrorColor: '#ff0000',
+    sensorDescription: 'Touch sensor',
+    sensorErrorDescription: 'Failed',
+    cancelText: 'Cancel',
+    fallbackLabel: 'Show Passcode',
+    unifiedErrors: false,
+    passcodeFallback: false,
   };
   const handleBiomatric = () => {
     TouchID.isSupported(optionalConfigObject)
@@ -100,7 +102,11 @@ function App() {
           TouchID.authenticate('', optionalConfigObject)
             .then(success => {
               console.log(success);
-              setIsAuth(true);
+              setShowLoader(true);
+              setTimeout(() => {
+                setIsAuth(true);
+                setShowLoader(false);
+              }, 4000);
             })
             .catch(e => {
               console.log(e);
@@ -123,7 +129,9 @@ function App() {
 
   return (
     <>
-      {isAuth ? (
+      {showLoader ? (
+        <Loader/>
+      ) : isAuth ? (
         <NavigationContainer>
           <MyDrawer setLanguage={setLanguage} lang={lang} />
         </NavigationContainer>
@@ -133,6 +141,7 @@ function App() {
     </>
   );
 }
+
 
 const styles = StyleSheet.create({
   sectionContainer: {
