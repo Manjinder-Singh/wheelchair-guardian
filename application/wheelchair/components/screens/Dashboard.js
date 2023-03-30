@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import io from 'socket.io-client';
 import {
   View,
   Text,
@@ -8,14 +9,26 @@ import {
   TouchableOpacity,
   Alert,
   Switch,
+  Linking,
 } from 'react-native';
-import { text } from '../../helpers/en' 
+import {text} from '../../helpers/en';
 const Dashboard = ({setLanguage, lang = 'en'}) => {
   const navigation = useNavigation();
   const [profileData, setProfileData] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   useEffect(() => {
+    const socket = io('http://localhost:5003/');
+
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+    socket.on('uvInput', data => {
+      const {uv} = data;
+      if (parseInt(uv) > 50) {
+        handleEmergency(uv);
+      }
+    });
     setLockStatus('UNLOCKED');
 
     const readData = async () => {
@@ -33,6 +46,9 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
       }
     };
     readData();
+    return () => {
+      socket.disconnect();
+    };
   }, []);
   React.useEffect(() => {
     const readData = async () => {
@@ -50,12 +66,12 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
+
   const handleWheelchairLocking = () => {
-    fetch('http://127.0.0.1:5003/status_value')
+    fetch('http://localhost:5003/status_value')
       .then(r => r.json())
       .then(res => {
         const {lock_status} = res;
-        // console.log('rrr', res);
         if (lock_status === 'UNLOCKED') {
           setLockStatus('LOCKED');
         } else {
@@ -63,12 +79,11 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
         }
       })
       .catch(e => {
-        console.log('*==', e);
         Alert.alert(e.message);
       });
   };
   const setLockStatus = status => {
-    fetch('http://127.0.0.1:5003/receive_resp', {
+    fetch('http://localhost:5003/receive_resp', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -79,9 +94,9 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
       .then(r => r.json())
       .then(res => {
         // console.log(res);
-        const {status} = res;
+        const {lock_status} = res;
         Alert.alert(
-          `Wheelchair is ${status === 'UNLOCKED' ? 'unlocked' : 'locked'}`,
+          `Wheelchair is ${lock_status === 'UNLOCKED' ? 'unlocked' : 'locked'}`,
         );
       })
       .catch(e => {
@@ -93,6 +108,15 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
       setLanguage('fr');
     } else {
       setLanguage('en');
+    }
+  };
+  const handleEmergency = async () => {
+    const contacts = await AsyncStorage.getItem('emergencyContacts');
+    const allContacts = contacts ? JSON.parse(contacts) : [];
+    if (allContacts.length) {
+      Linking.openURL(`tel:${allContacts[0].mobileNumber}`);
+    } else {
+      Linking.openURL(`tel:911`);
     }
   };
   return (
@@ -339,18 +363,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  headerWrapper:{
+  headerWrapper: {
     marginTop: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'center'
+    alignContent: 'center',
   },
   headerContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10
+    gap: 10,
   },
 });
 export default Dashboard;

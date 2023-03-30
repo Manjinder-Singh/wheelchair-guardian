@@ -47,7 +47,7 @@ const Maintenance = ({lang}) => {
   
   const onPressSubmit = async () => {
     Alert.alert(
-      `${text[lang].motificationWillBeTriggerdMessage} ${selectedOption.label} ${text[lang].startingNow}`,
+      `${text[lang].motificationWillBeTriggerdMessage}`,
     );
     await AsyncStorage.setItem(
       'notificationTriggerBaseTimePeriod',

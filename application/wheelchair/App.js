@@ -5,7 +5,7 @@
  * @format
  */
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import TouchID from 'react-native-touch-id';
 import {
   Alert,
@@ -15,7 +15,7 @@ import {
   View,
   BackHandler,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -30,9 +30,9 @@ import Dashboard from './components/screens/Dashboard';
 import Loader from './components/screens/Loader';
 import { text } from './helpers/en';
 
-function Article({lang}) {
+function Article({ lang }) {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>{text[lang].articleScreen}</Text>
     </View>
   );
@@ -48,7 +48,7 @@ function CustomDrawerContent(props) {
 
 const Drawer = createDrawerNavigator();
 
-function MyDrawer({setLanguage, lang = 'en'}) {
+function MyDrawer({ setLanguage, lang = 'en' }) {
   return (
     <Drawer.Navigator
       useLegacyImplementation
@@ -61,15 +61,15 @@ function MyDrawer({setLanguage, lang = 'en'}) {
       <Drawer.Screen name="Profile" options={{ title: text[lang].profile }}>
         {props => <Profile lang={lang} {...props} />}
       </Drawer.Screen>
-      <Drawer.Screen name="Emergency Contacts" options={{ title: text[lang].EmergencyContacts }}>
+      <Drawer.Screen name="Emergency Contacts" options={{ title: text[lang].emergencyContacts }}>
         {props => <EmergencyContacts lang={lang} {...props} />}
       </Drawer.Screen>
       <Drawer.Screen name="Emergency Activation" options={{ title: text[lang].emergencyActivation }}>
         {props => <EmergencyActivation lang={lang} {...props} />}
       </Drawer.Screen>
-      <Drawer.Screen name="Lock Wheelchair" options={{ title: text[lang].lockWheelchair }}>
+      {/* <Drawer.Screen name="Lock Wheelchair" options={{ title: text[lang].lockWheelchair }}>
         {props => <Article lang={lang} {...props} />}
-      </Drawer.Screen>
+      </Drawer.Screen>  */}
       <Drawer.Screen name="Maintenance" options={{ title: text[lang].maintenanceStatus }}>
         {props => <Maintenance lang={lang} {...props} />}
       </Drawer.Screen>
@@ -128,6 +128,7 @@ function App() {
   }, []);
 
   return (
+
     <>
       {showLoader ? (
         <Loader/>
@@ -136,8 +137,9 @@ function App() {
           <MyDrawer setLanguage={setLanguage} lang={lang} />
         </NavigationContainer>
       ) : (
-        <Text>{text[lang].authIsRequired}</Text>
-      )}
+          <Text>{text[lang].authIsRequired}</Text>
+
+        )}
     </>
   );
 }

@@ -14,7 +14,7 @@ export const text = {
     hello: 'Hello',
     profileDetails: 'Profile Details',
     emergencyDetails: 'Emergency Details',
-    emergencyActivation: 'Emergency Actication',
+    emergencyActivation: 'Emergency Activation',
     lockWheelchair: 'Lock Wheelchair',
     maintenanceStatus: 'Maintenance Status',
     notifications: 'Notifications',
@@ -41,11 +41,11 @@ export const text = {
     addUser: "Add User",
 
     // Emergency Activation
-    police:"police",
-    call: "call",
+    police:"Police",
+    call: "Call",
 
      // Maintenance
-     motificationWillBeTriggerdMessage: "Notifications will be triggerd periodically after",
+     motificationWillBeTriggerdMessage: "Notifications settings updated",
      startingNow: "starting now.",
      selectTimeframe: "Select a timeframe for future maintenance and reminder",
      oneWeek: "1 week",
@@ -74,7 +74,7 @@ export const text = {
     hello: 'Bonjour',
     profileDetails: 'Détails du profil',
     emergencyDetails: "Détails d'urgence",
-    emergencyActivation: "Action d'urgence",
+    emergencyActivation: "Activation d'urgence",
     lockWheelchair: 'Verrouiller le fauteuil roulant',
     maintenanceStatus: "Statut d'entretien",
     notifications: 'Avis',
@@ -104,7 +104,7 @@ export const text = {
     call:"appel",
 
     // Maintenance
-    motificationWillBeTriggerdMessage: "Les notifications seront déclenchées périodiquement après",
+    motificationWillBeTriggerdMessage: "Paramètres de notification mis à jour",
     startingNow: "à partir de maintenant.",
     selectTimeframe: "Sélectionnez un calendrier pour la maintenance future et le rappel",
     oneWeek: "1 semaine",

@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #e2e2e2;
+    padding: 20px;
+}
+section.header-section {
+    text-align: center;
+    color: #111;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+section.simulator-controls {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    height: 500;
+}
+.lock-status-container{
+    padding: 20px;
+    display: flex;
+    flex: 1;
+    background-color: #fff;
+    border-radius: 5px;
+    justify-content: center;
+}
+.uv-sensor-input {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.uv-sensor-input > button {
+    background-color: #262A56;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.uv-sensor-input > input {
+    border: 1px solid #262A56;
+    padding: 5px 0px 5px 5px;
+    border-radius: 5px;
+    outline: none;
+    width: 200px;
+}
+.uv-sensor-input-wrapper,
+.lock-status-wrapper{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.lock-status-container > img {
+    width: 300;
+    height: 300;
+}
+
+.sec-title {
+    margin-bottom: 5px;
+}

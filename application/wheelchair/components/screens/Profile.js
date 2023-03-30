@@ -139,7 +139,8 @@ export default function Profile({lang}) {
               <SafeAreaView>
                 <View style={{flexDirection: 'row'}}>
                   {/* <Text>Name</Text> */}
-                  <TextInput
+                  <TextInput 
+                  placeholderTextColor="black"
                     placeholder={text[lang].name}
                     style={styles.input}
                     textAlign={'center'}
@@ -149,7 +150,8 @@ export default function Profile({lang}) {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   {/* <Text>Contact Number</Text> */}
-                  <TextInput
+                  <TextInput 
+                  placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].contactNumber}
                     textAlign={'center'}
@@ -159,7 +161,8 @@ export default function Profile({lang}) {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   {/* <Text>Email ID</Text> */}
-                  <TextInput
+                  <TextInput 
+                  placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].emailId}
                     textAlign={'center'}
@@ -169,7 +172,8 @@ export default function Profile({lang}) {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   {/* <Text>Address</Text> */}
-                  <TextInput
+                  <TextInput 
+                  placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].enterAddress}
                     textAlign={'center'}
@@ -179,7 +183,8 @@ export default function Profile({lang}) {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   {/* <Text>Age</Text> */}
-                  <TextInput
+                  <TextInput 
+                  placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].enterAge}
                     textAlign={'center'}
@@ -189,7 +194,8 @@ export default function Profile({lang}) {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   {/* <Text>Gender</Text> */}
-                  {/* <TextInput
+                  {/* <TextInput 
+                  placeholderTextColor="black"
                   style={styles.input}
                   placeholder="Enter Gender: "
                   textAlign={'center'}
@@ -226,6 +232,7 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    color: 'black',
   },
   button1: {
     backgroundColor: 'blue',
