@@ -30,9 +30,13 @@
         </div>
       </div>
     </section>
+    <section>
+      <button id="reset-simulator">Reset</button>
+    </section>
     <script>
       const uvInput = document.getElementById("uv-sensor-reading");
       const setBtn = document.getElementById("set-btn");
+      const resetBtn = document.getElementById("reset-simulator")
       setBtn.addEventListener("click", (e) => {
         e.preventDefault();
         fetch("http://localhost:5003/send_status_value", {
@@ -51,6 +55,26 @@
             console.error(e);
           });
       });
+
+      resetBtn.addEventListener("click", (e)=> {
+        e.preventDefault();
+        fetch("http://localhost:5003/reset_simulator", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ reset: true }),
+        })
+          .then((r) => r.json())
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      })
+
       function updateImage() {
         fetch("http://localhost:5003/status_value")
           .then((r) => r.json())
