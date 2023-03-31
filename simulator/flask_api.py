@@ -40,30 +40,39 @@ def handle_message(data):
     # Handle incoming messages from clients
     print('received message:', data)
 
-@app.route('/send_status_value', methods=['POST']) 
+@app.route('/send_status_value', methods=['POST'])
 def function1():
     global status
     val = request.json.get('uv')
     socketio.emit('uvInput', {'uv': val})
     return jsonify({'uv': val})
 
-@app.route('/status_value', methods=['GET']) 
+@app.route('/status_value', methods=['GET'])
 def function3():
     global status
     return jsonify({'lock_status': status})
         
-@app.route('/receive_resp', methods=['POST']) 
+@app.route('/receive_resp', methods=['POST'])
 def function2():
     global status
     new_status = request.json.get('status')
-    print("received", new_status)
     if new_status not in ['LOCKED', 'UNLOCKED']:
         return jsonify({'error': 'Invalid status'}), 400
     status = new_status
     return jsonify({'lock_status': status})
 
+@app.route('/reset_simulator', methods=['POST'])
+def function4():
+    global status
+    new_status = request.json.get('reset')
+    print("received", new_status)
+    if new_status == "True":
+        return jsonify({'error': 'Invalid status'}), 400
+    status = "LOCKED"
+    return jsonify({'message': "success"})
+
 if __name__ == '__main__':
     print("Working dir = ", os.path.abspath(os.getcwd()))
-    app.run(host="127.0.0.1", port="5003", threaded=True) 
-    socketio.run(app, debug=True)    
+    app.run(host="127.0.0.1", port="5003", threaded=True)
+    socketio.run(app, debug=True)
             

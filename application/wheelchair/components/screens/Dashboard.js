@@ -14,6 +14,7 @@ import {
 import {text} from '../../helpers/en';
 const Dashboard = ({setLanguage, lang = 'en'}) => {
   const navigation = useNavigation();
+  const [currentLockStatus, setCurrentLockStatus] = useState("LOCKED");
   const [profileData, setProfileData] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
@@ -75,7 +76,8 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
         if (lock_status === 'UNLOCKED') {
           setLockStatus('LOCKED');
         } else {
-          Alert.alert(text[lang].alreadyLockedError);
+          // Alert.alert(text[lang].alreadyLockedError);
+          setLockStatus('UNLOCKED');
         }
       })
       .catch(e => {
@@ -98,6 +100,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
         Alert.alert(
           `Wheelchair is ${lock_status === 'UNLOCKED' ? 'unlocked' : 'locked'}`,
         );
+        setCurrentLockStatus(lock_status)
       })
       .catch(e => {
         Alert.alert(e.message);
@@ -254,7 +257,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
-              {text[lang].lockWheelchair}
+              { currentLockStatus === "UNLOCKED" ? text[lang].lockWheelchair :  text[lang].unlockWheelchair }
             </Text>
           </TouchableOpacity>
         </View>
