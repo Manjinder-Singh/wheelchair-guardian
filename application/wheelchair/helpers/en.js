@@ -1,3 +1,4 @@
+export const networkUrl= "https://wcguardapi.azurewebsites.net/"
 export const text = {
   en: {
     // Main

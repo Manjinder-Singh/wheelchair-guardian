@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { text } from '../../helpers/en' 
+import { text } from '../../helpers/en'
 const REQUIRED_ERROR = 'This field is required.';
 const INVALID_EMAIL = 'Invalid email!';
 const INVALID_MOBILE_NUMBER = 'Invalid mobile number!';
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mobileRegex = /^[0-9]{10}$/;
-function EmergencyContacts({lang}) {
+function EmergencyContacts({ lang }) {
   const [newUser, setNewUser] = useState({
     firstName: '',
     lastName: '',
@@ -50,7 +50,7 @@ function EmergencyContacts({lang}) {
     try {
       await AsyncStorage.setItem(
         'emergencyContacts',
-        JSON.stringify({users: allUsers}),
+        JSON.stringify({ users: allUsers }),
       );
       console.log('Data saved.');
     } catch (error) {
@@ -82,22 +82,22 @@ function EmergencyContacts({lang}) {
     }
   };
   const handleChange = (type, text) => {
-    const tempUser = {...newUser};
+    const tempUser = { ...newUser };
     tempUser[type] = text;
     setNewUser(tempUser);
     if (type === 'email') {
       emailRegex.test(text)
-        ? setError({...error, emailError: ''})
-        : setError({...error, emailError: INVALID_EMAIL});
+        ? setError({ ...error, emailError: '' })
+        : setError({ ...error, emailError: INVALID_EMAIL });
     } else if (type === 'mobileNumber' && text.length != 10) {
       mobileRegex.test(text)
-        ? setError({...error, mobileNumberError: ''})
-        : setError({...error, mobileNumberError: INVALID_MOBILE_NUMBER});
+        ? setError({ ...error, mobileNumberError: '' })
+        : setError({ ...error, mobileNumberError: INVALID_MOBILE_NUMBER });
     } else {
       if (text.trim()) {
-        setError({...error, [`${type}Error`]: ''});
+        setError({ ...error, [`${type}Error`]: '' });
       } else {
-        setError({...error, [`${type}Error`]: REQUIRED_ERROR});
+        setError({ ...error, [`${type}Error`]: REQUIRED_ERROR });
       }
     }
   };
@@ -106,7 +106,7 @@ function EmergencyContacts({lang}) {
   // };
   const validateForm = () => {
     let formIsValid = true;
-    const newErrors = {...error};
+    const newErrors = { ...error };
     if (!newUser.firstName.trim()) {
       newErrors.firstNameError = REQUIRED_ERROR;
       formIsValid = false;
@@ -135,7 +135,7 @@ function EmergencyContacts({lang}) {
       {users.length < 5 && (
         <View style={styles.userContainer}>
           <View style={styles.inputBox}>
-            <TextInput
+            <TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].firstName}
               value={newUser.firstName}
@@ -146,7 +146,7 @@ function EmergencyContacts({lang}) {
             ) : null}
           </View>
           <View style={styles.inputBox}>
-            <TextInput
+            <TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].lastName}
               value={newUser.lastName}
@@ -157,7 +157,7 @@ function EmergencyContacts({lang}) {
             ) : null}
           </View>
           <View style={styles.inputBox}>
-            <TextInput
+            <TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].mobileNumber}
               value={newUser.mobileNumber}
@@ -168,7 +168,7 @@ function EmergencyContacts({lang}) {
             ) : null}
           </View>
           <View style={styles.inputBox}>
-            <TextInput
+            <TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].emailAddress}
               value={newUser.email}
@@ -179,7 +179,7 @@ function EmergencyContacts({lang}) {
             ) : null}
           </View>
           <View style={styles.inputBox}>
-            <TextInput
+            <TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].address}
               value={newUser.address}

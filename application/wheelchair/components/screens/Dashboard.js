@@ -11,7 +11,7 @@ import {
   Switch,
   Linking,
 } from 'react-native';
-import {text} from '../../helpers/en';
+import {text, networkUrl} from '../../helpers/en';
 const Dashboard = ({setLanguage, lang = 'en'}) => {
   const navigation = useNavigation();
   const [currentLockStatus, setCurrentLockStatus] = useState("LOCKED");
@@ -19,7 +19,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   useEffect(() => {
-    const socket = io('http://localhost:5003/');
+    const socket = io(networkUrl+'/');
 
     socket.on('connect', () => {
       console.log('Connected to server');
@@ -69,7 +69,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
   }, [navigation]);
 
   const handleWheelchairLocking = () => {
-    fetch('http://localhost:5003/status_value')
+    fetch(networkUrl+'/status_value')
       .then(r => r.json())
       .then(res => {
         const {lock_status} = res;
@@ -85,7 +85,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
       });
   };
   const setLockStatus = status => {
-    fetch('http://localhost:5003/receive_resp', {
+    fetch(networkUrl+'/receive_resp', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
