@@ -19,7 +19,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   useEffect(() => {
-    const socket = io(networkUrl+'/');
+    const socket = io(networkUrl+'');
 
     socket.on('connect', () => {
       console.log('Connected to server');
@@ -69,7 +69,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
   }, [navigation]);
 
   const handleWheelchairLocking = () => {
-    fetch(networkUrl+'/status_value')
+    fetch(networkUrl+'status_value')
       .then(r => r.json())
       .then(res => {
         const {lock_status} = res;
@@ -85,7 +85,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
       });
   };
   const setLockStatus = status => {
-    fetch(networkUrl+'/receive_resp', {
+    fetch(networkUrl+'receive_resp', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
