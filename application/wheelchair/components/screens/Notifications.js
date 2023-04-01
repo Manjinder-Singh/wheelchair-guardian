@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   notificationsCardContainer:{
-    height: "100%"
+    height: "100%",
+    color:'black'
   },
   notificationsCard: {
     padding: 10,
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   setColorWhite: {
-    color: 'black',
+    color: '#fff',
   },
   primaryText: {
     flexDirection: 'row',
