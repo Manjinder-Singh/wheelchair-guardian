@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   setColorWhite: {
-    color: '#FFFFFF',
+    color: 'black',
   },
   primaryText: {
     flexDirection: 'row',
