@@ -86,8 +86,8 @@ const Notifications = ({ lang }) => {
         {notifications &&
           notifications.map(notification => (
             <View key={notification.id} style={styles.notificationsCard}>
-              <Text>{text[lang].maintenanceDueOn}</Text>
-              <Text>{notification.date}</Text>
+              <Text style={styles.textColorBlack}>{text[lang].maintenanceDueOn}</Text>
+              <Text style={styles.textColorBlack}>{notification.date}</Text>
             </View>
           ))}
       </ScrollView>
@@ -114,6 +114,9 @@ const styles = StyleSheet.create({
   },
   setColorWhite: {
     color: '#fff',
+  },
+  textColorBlack: {
+    color: 'black'
   },
   primaryText: {
     flexDirection: 'row',
