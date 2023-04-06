@@ -1,4 +1,32 @@
-import React, { useEffect, useState } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: EmergencyContacts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: EmergencyContacts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { text } from '../../helpers/en'
@@ -122,7 +150,7 @@ function EmergencyContacts({ lang }) {
       emailRegex.test(text)
         ? setError({ ...error, emailError: '' })
         : setError({ ...error, emailError: INVALID_EMAIL });
-    } else if (type === 'mobileNumber' && text.length != 10) {
+    } else if (type === 'mobileNumber' &amp;&amp; text.length != 10) {
       mobileRegex.test(text)
         ? setError({ ...error, mobileNumberError: '' })
         : setError({ ...error, mobileNumberError: INVALID_MOBILE_NUMBER });
@@ -170,90 +198,90 @@ function EmergencyContacts({ lang }) {
     return formIsValid;
   };
   return (
-    <View style={styles.container}>
-      {users.length < 5 && (
-        <View style={styles.userContainer}>
-          <View style={styles.inputBox}>
-            <TextInput placeholderTextColor="black"
+    &lt;View style={styles.container}>
+      {users.length &lt; 5 &amp;&amp; (
+        &lt;View style={styles.userContainer}>
+          &lt;View style={styles.inputBox}>
+            &lt;TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].firstName}
               value={newUser.firstName}
               onChangeText={e => handleChange('firstName', e)}
             />
             {error.firstNameError ? (
-              <Text style={styles.errorMessage}>{error.firstNameError}</Text>
+              &lt;Text style={styles.errorMessage}>{error.firstNameError}&lt;/Text>
             ) : null}
-          </View>
-          <View style={styles.inputBox}>
-            <TextInput placeholderTextColor="black"
+          &lt;/View>
+          &lt;View style={styles.inputBox}>
+            &lt;TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].lastName}
               value={newUser.lastName}
               onChangeText={e => handleChange('lastName', e)}
             />
             {error.lastNameError ? (
-              <Text style={styles.errorMessage}>{error.lastNameError}</Text>
+              &lt;Text style={styles.errorMessage}>{error.lastNameError}&lt;/Text>
             ) : null}
-          </View>
-          <View style={styles.inputBox}>
-            <TextInput placeholderTextColor="black"
+          &lt;/View>
+          &lt;View style={styles.inputBox}>
+            &lt;TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].mobileNumber}
               value={newUser.mobileNumber}
               onChangeText={e => handleChange('mobileNumber', e)}
             />
             {error.mobileNumberError ? (
-              <Text style={styles.errorMessage}>{error.mobileNumberError}</Text>
+              &lt;Text style={styles.errorMessage}>{error.mobileNumberError}&lt;/Text>
             ) : null}
-          </View>
-          <View style={styles.inputBox}>
-            <TextInput placeholderTextColor="black"
+          &lt;/View>
+          &lt;View style={styles.inputBox}>
+            &lt;TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].emailAddress}
               value={newUser.email}
               onChangeText={e => handleChange('email', e)}
             />
             {error.emailError ? (
-              <Text style={styles.errorMessage}>{error.emailError}</Text>
+              &lt;Text style={styles.errorMessage}>{error.emailError}&lt;/Text>
             ) : null}
-          </View>
-          <View style={styles.inputBox}>
-            <TextInput placeholderTextColor="black"
+          &lt;/View>
+          &lt;View style={styles.inputBox}>
+            &lt;TextInput placeholderTextColor="black"
               style={styles.input}
               placeholder={text[lang].address}
               value={newUser.address}
               onChangeText={e => handleChange('address', e)}
             />
             {error.addressError ? (
-              <Text style={styles.errorMessage}>{error.addressError}</Text>
+              &lt;Text style={styles.errorMessage}>{error.addressError}&lt;/Text>
             ) : null}
-          </View>
-        </View>
+          &lt;/View>
+        &lt;/View>
       )}
-      {/* {error ? <Text style={styles.error}>{error}</Text> : null} */}
-      {users.length < 5 && <Button title={text[lang].addUser} onPress={addUser} />}
-      <View style={styles.emergencyContactsContainer}>
+      {/* {error ? &lt;Text style={styles.error}>{error}&lt;/Text> : null} */}
+      {users.length &lt; 5 &amp;&amp; &lt;Button title={text[lang].addUser} onPress={addUser} />}
+      &lt;View style={styles.emergencyContactsContainer}>
         {users.map((user, index) => (
-          <View key={index} style={styles.emergencyContacts}>
-            <View>
-              <Text
+          &lt;View key={index} style={styles.emergencyContacts}>
+            &lt;View>
+              &lt;Text
                 style={
                   styles.textStyle
-                }>{`${user.firstName} ${user.lastName}`}</Text>
-            </View>
-            <View>
-              <Text style={styles.textStyle}>{user.email}</Text>
-            </View>
-            <View>
-              <Text style={styles.textStyle}>{user.mobileNumber}</Text>
-            </View>
-            <View>
-              <Text style={styles.textStyle}>{user.address}</Text>
-            </View>
-          </View>
+                }>{`${user.firstName} ${user.lastName}`}&lt;/Text>
+            &lt;/View>
+            &lt;View>
+              &lt;Text style={styles.textStyle}>{user.email}&lt;/Text>
+            &lt;/View>
+            &lt;View>
+              &lt;Text style={styles.textStyle}>{user.mobileNumber}&lt;/Text>
+            &lt;/View>
+            &lt;View>
+              &lt;Text style={styles.textStyle}>{user.address}&lt;/Text>
+            &lt;/View>
+          &lt;/View>
         ))}
-      </View>
-    </View>
+      &lt;/View>
+    &lt;/View>
   );
 }
 const styles = StyleSheet.create({
@@ -306,3 +334,26 @@ const styles = StyleSheet.create({
   },
 });
 export default EmergencyContacts;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#EmergencyActivation">EmergencyActivation</a></li><li><a href="global.html#EmergencyContacts">EmergencyContacts</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Maintenance">Maintenance</a></li><li><a href="global.html#Notifications">Notifications</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 05 2023 20:44:07 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

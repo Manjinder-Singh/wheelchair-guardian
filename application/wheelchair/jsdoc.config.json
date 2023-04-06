@@ -1,0 +1,16 @@
+{
+    "source": {
+      "include": ["./components/screens/"],
+      "exclude": ["./node_modules"]
+    },
+    "opts": {
+      "destination": "./docs",
+      "recurse": true
+    },
+    "plugins": [],
+  "templates": {
+    "better-docs": {
+      "name": "My React components"
+    }
+  }
+  }

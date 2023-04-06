@@ -1,4 +1,32 @@
-import React, {useState, useEffect} from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Dashboard.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Dashboard.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import io from 'socket.io-client';
@@ -159,17 +187,17 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
     }
   };
   return (
-    <View style={styles.container}>
-      <View style={[styles.sidebar, {left: menuOpen ? 0 : -200}]}>
+    &lt;View style={styles.container}>
+      &lt;View style={[styles.sidebar, {left: menuOpen ? 0 : -200}]}>
         {menuItems.map((item, index) => (
-          <View key={index} style={styles.sidebarItem}>
-            <Text style={styles.sidebarItemText}>{item}</Text>
-          </View>
+          &lt;View key={index} style={styles.sidebarItem}>
+            &lt;Text style={styles.sidebarItemText}>{item}&lt;/Text>
+          &lt;/View>
         ))}
-      </View>
-      <View style={styles.headerWrapper}>
-        <View>
-          <Text
+      &lt;/View>
+      &lt;View style={styles.headerWrapper}>
+        &lt;View>
+          &lt;Text
             style={{
               fontSize: 24,
               marginBottom: 5,
@@ -177,9 +205,9 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
               marginLeft: 5,
             }}>
             {text[lang].hello}
-          </Text>
-          {profileData && profileData.name && (
-            <Text
+          &lt;/Text>
+          {profileData &amp;&amp; profileData.name &amp;&amp; (
+            &lt;Text
               style={{
                 fontSize: 24,
                 marginBottom: 5,
@@ -187,34 +215,34 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 marginLeft: 5,
               }}>
               {profileData.name}
-            </Text>
+            &lt;/Text>
           )}
-        </View>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerTitle}>French/English</Text>
-          <Switch
+        &lt;/View>
+        &lt;View style={styles.headerContainer}>
+          &lt;Text style={styles.headerTitle}>French/English&lt;/Text>
+          &lt;Switch
             trackColor={{false: '#767577', true: '#81b0ff'}}
             ios_backgroundColor="#3e3e3e"
             onValueChange={() => handleLanguageChange()}
             value={lang === 'en'}
           />
-        </View>
-      </View>
-      <View
+        &lt;/View>
+      &lt;/View>
+      &lt;View
         style={{
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
           flexBasis: 100,
         }}>
-        <View
+        &lt;View
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             gap: 10,
             flexDirection: 'row',
           }}>
-          <TouchableOpacity
+          &lt;TouchableOpacity
             onPress={() => navigation.navigate('Profile')}
             style={{
               flex: 1,
@@ -223,7 +251,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
               flex: 1,
               borderRadius: 15,
             }}>
-            <Text
+            &lt;Text
               style={{
                 color: 'white',
                 fontSize: 20,
@@ -231,9 +259,9 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 textAlign: 'center',
               }}>
               {text[lang].profileDetails}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+            &lt;/Text>
+          &lt;/TouchableOpacity>
+          &lt;TouchableOpacity
             onPress={() => navigation.navigate('Emergency Contacts')}
             style={{
               flex: 1,
@@ -242,7 +270,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
               flex: 1,
               borderRadius: 15,
             }}>
-            <Text
+            &lt;Text
               style={{
                 color: 'white',
                 fontSize: 20,
@@ -250,17 +278,17 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 textAlign: 'center',
               }}>
               {text[lang].emergencyDetails}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
+            &lt;/Text>
+          &lt;/TouchableOpacity>
+        &lt;/View>
+        &lt;View
           style={{
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
             gap: 10,
           }}>
-          <TouchableOpacity
+          &lt;TouchableOpacity
             onPress={() => navigation.navigate('Emergency Activation')}
             style={{
               backgroundColor: '#404040',
@@ -268,7 +296,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
               flex: 1,
               borderRadius: 15,
             }}>
-            <Text
+            &lt;Text
               style={{
                 color: 'red',
                 fontSize: 20,
@@ -276,9 +304,9 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 textAlign: 'center',
               }}>
               {text[lang].emergencyActivation}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+            &lt;/Text>
+          &lt;/TouchableOpacity>
+          &lt;TouchableOpacity
             onPress={handleWheelchairLocking}
             style={{
               backgroundColor: '#404040',
@@ -286,7 +314,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
               flex: 1,
               borderRadius: 15,
             }}>
-            <Text
+            &lt;Text
               style={{
                 color: 'red',
                 fontSize: 20,
@@ -294,17 +322,17 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 textAlign: 'center',
               }}>
               { currentLockStatus === "UNLOCKED" ? text[lang].lockWheelchair :  text[lang].unlockWheelchair }
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
+            &lt;/Text>
+          &lt;/TouchableOpacity>
+        &lt;/View>
+        &lt;View
           style={{
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
             gap: 10,
           }}>
-          <TouchableOpacity
+          &lt;TouchableOpacity
             onPress={() => navigation.navigate('Maintenance')}
             style={{
               backgroundColor: '#90EE90',
@@ -312,7 +340,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
               flex: 1,
               borderRadius: 15,
             }}>
-            <Text
+            &lt;Text
               style={{
                 color: 'black',
                 fontSize: 20,
@@ -320,9 +348,9 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 textAlign: 'center',
               }}>
               {text[lang].maintenanceStatus}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+            &lt;/Text>
+          &lt;/TouchableOpacity>
+          &lt;TouchableOpacity
             onPress={() => navigation.navigate('Notifications')}
             style={{
               backgroundColor: 'red',
@@ -330,7 +358,7 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
               flex: 1,
               borderRadius: 15,
             }}>
-            <Text
+            &lt;Text
               style={{
                 color: 'black',
                 fontSize: 20,
@@ -338,11 +366,11 @@ const Dashboard = ({setLanguage, lang = 'en'}) => {
                 textAlign: 'center',
               }}>
               {text[lang].notifications}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+            &lt;/Text>
+          &lt;/TouchableOpacity>
+        &lt;/View>
+      &lt;/View>
+    &lt;/View>
   );
 };
 const styles = StyleSheet.create({
@@ -417,3 +445,26 @@ const styles = StyleSheet.create({
   },
 });
 export default Dashboard;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#EmergencyActivation">EmergencyActivation</a></li><li><a href="global.html#EmergencyContacts">EmergencyContacts</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Maintenance">Maintenance</a></li><li><a href="global.html#Notifications">Notifications</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 05 2023 20:44:07 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

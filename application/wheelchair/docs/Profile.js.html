@@ -1,4 +1,32 @@
-import React, {useEffect} from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Profile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Profile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useEffect} from 'react';
 import {
   Text,
   TextInput,
@@ -85,8 +113,8 @@ export default function Profile({lang}) {
   };
   const [modalVisible, setModalVisible] = React.useState(false);
   return (
-    <View style={styles.container}>
-      <Image
+    &lt;View style={styles.container}>
+      &lt;Image
         source={require('../../Assets/placeholder.png')}
         style={{
           alignSelf: 'center',
@@ -96,16 +124,16 @@ export default function Profile({lang}) {
           borderRadius: 200 / 2,
         }}
       />
-      <Text style={[styles.userName, styles.setColorWhite]}>
-        {inputs && inputs.name}
-      </Text>
-      <Pressable
+      &lt;Text style={[styles.userName, styles.setColorWhite]}>
+        {inputs &amp;&amp; inputs.name}
+      &lt;/Text>
+      &lt;Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>{text[lang].editProfile}</Text>
-      </Pressable>
-      <View style={{flexDirection: 'row', alignSelf: 'center', marginTop: 40}}>
-        {/* <Text style={styles.setColorWhite}>Notifications</Text>        <Switch
+        &lt;Text style={styles.textStyle}>{text[lang].editProfile}&lt;/Text>
+      &lt;/Pressable>
+      &lt;View style={{flexDirection: 'row', alignSelf: 'center', marginTop: 40}}>
+        {/* &lt;Text style={styles.setColorWhite}>Notifications&lt;/Text>        &lt;Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
           onValueChange={toggleSwitch}
@@ -113,121 +141,121 @@ export default function Profile({lang}) {
           style={{
             marginLeft: 10
           }} /> */}
-      </View>
-      <View style={[styles.TextView, styles.setColorWhite]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>
-        {text[lang].contactNumber}: {inputs && inputs.contact}
-        </Text>
-      </View>
-      <View style={[styles.TextView]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>
-        {text[lang].emailId}: {inputs && inputs.email}
-        </Text>
-      </View>
-      <View style={[styles.TextView]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>
-        {text[lang].address}: {inputs && inputs.address}
-        </Text>
-      </View>
-      <View style={[styles.TextView]}>
-        <Text style={[styles.TextView, styles.setColorWhite]}>
-        {text[lang].age}: {inputs && inputs.age}
-        </Text>
-      </View>
-      {/* <View style={[styles.TextView]}>        <Text style={[styles.TextView, styles.setColorWhite]}>Gender: {inputs && inputs.gender}</Text>      </View> */}
-      <View style={styles.centeredView}>
-        <Modal
+      &lt;/View>
+      &lt;View style={[styles.TextView, styles.setColorWhite]}>
+        &lt;Text style={[styles.TextView, styles.setColorWhite]}>
+        {text[lang].contactNumber}: {inputs &amp;&amp; inputs.contact}
+        &lt;/Text>
+      &lt;/View>
+      &lt;View style={[styles.TextView]}>
+        &lt;Text style={[styles.TextView, styles.setColorWhite]}>
+        {text[lang].emailId}: {inputs &amp;&amp; inputs.email}
+        &lt;/Text>
+      &lt;/View>
+      &lt;View style={[styles.TextView]}>
+        &lt;Text style={[styles.TextView, styles.setColorWhite]}>
+        {text[lang].address}: {inputs &amp;&amp; inputs.address}
+        &lt;/Text>
+      &lt;/View>
+      &lt;View style={[styles.TextView]}>
+        &lt;Text style={[styles.TextView, styles.setColorWhite]}>
+        {text[lang].age}: {inputs &amp;&amp; inputs.age}
+        &lt;/Text>
+      &lt;/View>
+      {/* &lt;View style={[styles.TextView]}>        &lt;Text style={[styles.TextView, styles.setColorWhite]}>Gender: {inputs &amp;&amp; inputs.gender}&lt;/Text>      &lt;/View> */}
+      &lt;View style={styles.centeredView}>
+        &lt;Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <SafeAreaView>
-                <View style={{flexDirection: 'row'}}>
-                  {/* <Text>Name</Text> */}
-                  <TextInput 
+          &lt;View style={styles.centeredView}>
+            &lt;View style={styles.modalView}>
+              &lt;SafeAreaView>
+                &lt;View style={{flexDirection: 'row'}}>
+                  {/* &lt;Text>Name&lt;/Text> */}
+                  &lt;TextInput 
                   placeholderTextColor="black"
                     placeholder={text[lang].name}
                     style={styles.input}
                     textAlign={'center'}
-                    value={inputs && inputs.name}
+                    value={inputs &amp;&amp; inputs.name}
                     onChangeText={text => handleChange('name', text)}
                   />
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  {/* <Text>Contact Number</Text> */}
-                  <TextInput 
+                &lt;/View>
+                &lt;View style={{flexDirection: 'row'}}>
+                  {/* &lt;Text>Contact Number&lt;/Text> */}
+                  &lt;TextInput 
                   placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].contactNumber}
                     textAlign={'center'}
                     onChangeText={text => handleChange('contact', text)}
-                    value={inputs && inputs.contact}
+                    value={inputs &amp;&amp; inputs.contact}
                   />
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  {/* <Text>Email ID</Text> */}
-                  <TextInput 
+                &lt;/View>
+                &lt;View style={{flexDirection: 'row'}}>
+                  {/* &lt;Text>Email ID&lt;/Text> */}
+                  &lt;TextInput 
                   placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].emailId}
                     textAlign={'center'}
                     onChangeText={text => handleChange('email', text)}
-                    value={inputs && inputs.email}
+                    value={inputs &amp;&amp; inputs.email}
                   />
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  {/* <Text>Address</Text> */}
-                  <TextInput 
+                &lt;/View>
+                &lt;View style={{flexDirection: 'row'}}>
+                  {/* &lt;Text>Address&lt;/Text> */}
+                  &lt;TextInput 
                   placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].enterAddress}
                     textAlign={'center'}
                     onChangeText={text => handleChange('address', text)}
-                    value={inputs && inputs.address}
+                    value={inputs &amp;&amp; inputs.address}
                   />
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  {/* <Text>Age</Text> */}
-                  <TextInput 
+                &lt;/View>
+                &lt;View style={{flexDirection: 'row'}}>
+                  {/* &lt;Text>Age&lt;/Text> */}
+                  &lt;TextInput 
                   placeholderTextColor="black"
                     style={styles.input}
                     placeholder={text[lang].enterAge}
                     textAlign={'center'}
                     onChangeText={text => handleChange('age', text)}
-                    value={inputs && inputs.age}
+                    value={inputs &amp;&amp; inputs.age}
                   />
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  {/* <Text>Gender</Text> */}
-                  {/* <TextInput 
+                &lt;/View>
+                &lt;View style={{flexDirection: 'row'}}>
+                  {/* &lt;Text>Gender&lt;/Text> */}
+                  {/* &lt;TextInput 
                   placeholderTextColor="black"
                   style={styles.input}
                   placeholder="Enter Gender: "
                   textAlign={'center'}
                   onChangeText={text => handleChange('gender', text)}
-                  value={inputs && inputs.gender}
+                  value={inputs &amp;&amp; inputs.gender}
                 /> */}
-                </View>
-                <Pressable
+                &lt;/View>
+                &lt;Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={saveInputs}>
-                  <Text style={styles.textStyle}>{text[lang].submit}</Text>
-                </Pressable>
-                <Pressable
+                  &lt;Text style={styles.textStyle}>{text[lang].submit}&lt;/Text>
+                &lt;/Pressable>
+                &lt;Pressable
                   style={[styles.button, styles.secondaryButton]}
                   onPress={() => setModalVisible(false)}>
-                  <Text style={styles.secondaryButtonTextStyle}>{text[lang].cancel}</Text>
-                </Pressable>
-              </SafeAreaView>
-            </View>
-          </View>
-        </Modal>
-      </View>
-    </View>
+                  &lt;Text style={styles.secondaryButtonTextStyle}>{text[lang].cancel}&lt;/Text>
+                &lt;/Pressable>
+              &lt;/SafeAreaView>
+            &lt;/View>
+          &lt;/View>
+        &lt;/Modal>
+      &lt;/View>
+    &lt;/View>
   );
 }
 const styles = StyleSheet.create({
@@ -332,3 +360,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#EmergencyActivation">EmergencyActivation</a></li><li><a href="global.html#EmergencyContacts">EmergencyContacts</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Maintenance">Maintenance</a></li><li><a href="global.html#Notifications">Notifications</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 05 2023 20:44:07 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
